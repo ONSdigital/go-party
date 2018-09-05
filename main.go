@@ -17,14 +17,18 @@ var commit = "Not set"
 var branch = "Not set"
 var built = "Not set"
 
-// Info represents the version of a service and other useful metadata.
-type Info struct {
+type info struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 	Origin  string `json:"origin"`
 	Commit  string `json:"commit"`
 	Branch  string `json:"branch"`
 	Built   string `json:"built"`
+}
+
+type sampleLink struct {
+	CollectionExerciseID string `json:"collectionExerciseId"`
+	SampleSummaryID      string `json:"sampleSummaryId"`
 }
 
 func main() {
@@ -34,12 +38,13 @@ func main() {
 	}
 
 	http.HandleFunc("/info", func(w http.ResponseWriter, r *http.Request) {
-		json, _ := json.Marshal(Info{Name: name, Version: version, Origin: origin, Commit: commit, Branch: branch, Built: built})
+		json, _ := json.Marshal(info{Name: name, Version: version, Origin: origin, Commit: commit, Branch: branch, Built: built})
 		fmt.Fprintf(w, "%s\n", json)
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "OK\n")
+		json, _ := json.Marshal(sampleLink{CollectionExerciseID: "00000000-0000-0000-0000-000000000000", SampleSummaryID: "00000000-0000-0000-0000-000000000000"})
+		fmt.Fprintf(w, "%s\n", json)
 	})
 	log.Fatal(http.ListenAndServe(port, nil))
 }
