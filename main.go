@@ -33,7 +33,7 @@ func main() {
 	}
 
 	http.HandleFunc("/info", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(Version{Name: name, Version: version, Origin: origin, Commit: commit, Branch: branch, Built: built})
+		fmt.Fprint(w, Version{Name: name, Version: version, Origin: origin, Commit: commit, Branch: branch, Built: built})
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {})
