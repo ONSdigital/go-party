@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -33,7 +34,8 @@ func main() {
 	}
 
 	http.HandleFunc("/info", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, Version{Name: name, Version: version, Origin: origin, Commit: commit, Branch: branch, Built: built})
+		json, _ := json.Marshal(Version{Name: name, Version: version, Origin: origin, Commit: commit, Branch: branch, Built: built})
+		fmt.Fprintf(w, "%s", json)
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {})
