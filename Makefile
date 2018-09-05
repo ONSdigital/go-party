@@ -13,11 +13,11 @@ MAC_BUILD_ARCH=$(BUILD)/$(OS_MAC)-$(ARCH)
 
 # Flags to pass to the Go linker using the -ldflags="-X ..." option.
 PACKAGE_PATH=github.com/ONSdigital/go-party
-BRANCH_FLAG=$(PACKAGE_PATH)/models.branch=$(BRANCH)
-BUILT_FLAG=$(PACKAGE_PATH)/models.built=$(BUILT)
-COMMIT_FLAG=$(PACKAGE_PATH)/models.commit=$(COMMIT)
-ORIGIN_FLAG=$(PACKAGE_PATH)/models.origin=$(ORIGIN)
-VERSION_FLAG=$(PACKAGE_PATH)/models.version=$(VERSION)
+BRANCH_FLAG=$(PACKAGE_PATH)/main.branch=$(BRANCH)
+BUILT_FLAG=$(PACKAGE_PATH)/main.built=$(BUILT)
+COMMIT_FLAG=$(PACKAGE_PATH)/main.commit=$(COMMIT)
+ORIGIN_FLAG=$(PACKAGE_PATH)/main.origin=$(ORIGIN)
+VERSION_FLAG=$(PACKAGE_PATH)/main.version=$(VERSION)
 
 # Get the Git branch the commit is from, stripping the leading asterisk.
 export BRANCH?=$(shell git branch --contains $(COMMIT) | grep \* | cut -d ' ' -f2)
