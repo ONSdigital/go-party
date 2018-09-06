@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+const contentType = "Content-Type"
+const jsonUTF8 = "application/json; charset=utf-8"
 const name = "partysvc"
 
 // These variables are assigned values during the build process using the -ldflags="-X ..." linker option.
@@ -38,13 +40,19 @@ func main() {
 	}
 
 	http.HandleFunc("/info", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set(contentType, jsonUTF8)
 		json, _ := json.Marshal(info{Name: name, Version: version, Origin: origin, Commit: commit, Branch: branch, Built: built})
 		fmt.Fprintf(w, "%s\n", json)
 	})
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/party-api/v1/businesses/sample/link/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set(contentType, jsonUTF8)
 		json, _ := json.Marshal(sampleLink{CollectionExerciseID: "00000000-0000-0000-0000-000000000000", SampleSummaryID: "00000000-0000-0000-0000-000000000000"})
 		fmt.Fprintf(w, "%s\n", json)
+	})
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "OK\n")
 	})
 	log.Fatal(http.ListenAndServe(port, nil))
 }
