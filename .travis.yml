@@ -15,7 +15,7 @@ after_success:
 
 env:
   global:
-    - DESTINATION_IMAGE_NAME="$DOCKER_GCP_LOCATION/census-rm-partysvc"
+    - DESTINATION_IMAGE_NAME="$DOCKER_GCP_LOCATION/census-rm-partysvc-stub"
 
 branches:
   only:
